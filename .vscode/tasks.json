@@ -1,0 +1,22 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Typecheck (Next.js)",
+			"type": "shell",
+			"command": "npm run lint",
+			"args": [],
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Typecheck (Next.js)",
+			"type": "shell",
+			"command": "npm run lint",
+			"args": [],
+			"group": "build"
+		}
+	]
+}
