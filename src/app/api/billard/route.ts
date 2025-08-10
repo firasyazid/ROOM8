@@ -6,27 +6,25 @@ import { getMongoCollection } from "@/lib/mongo";
 type Station = {
   id: number;
   running: boolean;
-  startTime: number | null; // epoch ms
-  playerCount?: 2 | 4 | null;
-  ratePerMinute?: number | null;
+  startTime: number | null;  
 };
 
 type AppState = {
-  date: string; // YYYY-MM-DD
+  date: string;  
   revenue: number;
   stations: Station[];
 };
 
-type GameRoomDoc = {
+type BilliardDoc = {
   _id: string;
   state: AppState;
 };
 
-const DATA_PATH = path.join(process.cwd(), "data.json");
-const DOC_ID = "game-room:state";
+const DATA_PATH = path.join(process.cwd(), "billiard.json");
+const DOC_ID = "billiard:state";
 
 function todayKey(): string {
-   return new Intl.DateTimeFormat("en-CA", {
+  return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Africa/Tunis",
     year: "numeric",
     month: "2-digit",
@@ -38,12 +36,12 @@ function defaultState(): AppState {
   return {
     date: todayKey(),
     revenue: 0,
-  stations: Array.from({ length: 7 }, (_, i) => ({ id: i + 1, running: false, startTime: null, playerCount: null, ratePerMinute: null })),
+    stations: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, running: false, startTime: null })),
   };
 }
 
 async function writeState(state: AppState): Promise<void> {
-  const coll = await getMongoCollection<GameRoomDoc>();
+  const coll = await getMongoCollection<BilliardDoc>();
   if (coll) {
     await coll.updateOne({ _id: DOC_ID }, { $set: { state } }, { upsert: true });
     return;
@@ -52,7 +50,7 @@ async function writeState(state: AppState): Promise<void> {
 }
 
 async function readState(): Promise<AppState> {
-  const coll = await getMongoCollection<GameRoomDoc>();
+  const coll = await getMongoCollection<BilliardDoc>();
   if (coll) {
     const doc = await coll.findOne({ _id: DOC_ID });
     if (doc?.state) return doc.state;
@@ -63,7 +61,7 @@ async function readState(): Promise<AppState> {
   try {
     const raw = await fs.readFile(DATA_PATH, "utf-8");
     const parsed = JSON.parse(raw) as AppState;
-    if (!parsed || !Array.isArray(parsed.stations) || parsed.stations.length !== 7) throw new Error("invalid");
+    if (!parsed || !Array.isArray(parsed.stations) || parsed.stations.length !== 4) throw new Error("invalid");
     return parsed;
   } catch {
     const init = defaultState();
@@ -93,7 +91,7 @@ function parseBodyAsState(x: unknown): AppState | null {
   const revenueVal = obj.revenue;
   const revenue = typeof revenueVal === "number" && Number.isFinite(revenueVal) ? revenueVal : 0;
   const list = Array.isArray(obj.stations) ? (obj.stations as unknown[]) : [];
-  const stations: Station[] = Array.from({ length: 7 }, (_, i) => {
+  const stations: Station[] = Array.from({ length: 4 }, (_, i) => {
     let found: unknown = undefined;
     for (const item of list) {
       if (item && typeof item === "object") {
@@ -106,19 +104,13 @@ function parseBodyAsState(x: unknown): AppState | null {
     }
     if (isStation(found)) {
       const rec = found as Record<string, unknown>;
-      const pc = rec.playerCount === 2 || rec.playerCount === 4 ? (rec.playerCount as 2 | 4) : null;
-      const rpm = typeof rec.ratePerMinute === "number" && Number.isFinite(rec.ratePerMinute as number)
-        ? (rec.ratePerMinute as number)
-        : null;
       return {
         id: i + 1,
-        running: !!found.running,
-        startTime: found.running && typeof rec.startTime === "number" ? (rec.startTime as number) : null,
-        playerCount: pc,
-        ratePerMinute: rpm,
+        running: !!rec.running,
+        startTime: rec.running && typeof rec.startTime === "number" ? (rec.startTime as number) : null,
       };
     }
-    return { id: i + 1, running: false, startTime: null, playerCount: null, ratePerMinute: null };
+    return { id: i + 1, running: false, startTime: null };
   });
   return { date, revenue, stations };
 }

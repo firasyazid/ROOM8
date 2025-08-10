@@ -1,12 +1,12 @@
-import News from "@/components/news/news";
+import Billard from "@/components/Billard/billard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "ROOM 8 -Play"
+    title: "ROOM 8 - Billard"
   };
 
 export default function HomePage() {
-  return <News/>;
+  return <Billard/>;
 }
 
 

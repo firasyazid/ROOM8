@@ -1,55 +1,55 @@
 {
-  "date": "2025-08-09",
+  "date": "2025-08-10",
   "revenue": 0,
   "stations": [
     {
       "id": 1,
-      "running": true,
-      "startTime": 1754767880130,
+      "running": false,
+      "startTime": null,
       "playerCount": null,
       "ratePerMinute": null
     },
     {
       "id": 2,
-      "running": true,
-      "startTime": 1754770025747,
-      "playerCount": 2,
-      "ratePerMinute": 0.12
+      "running": false,
+      "startTime": null,
+      "playerCount": null,
+      "ratePerMinute": null
     },
     {
       "id": 3,
-      "running": true,
-      "startTime": 1754770029875,
-      "playerCount": 4,
-      "ratePerMinute": 0.2
+      "running": false,
+      "startTime": null,
+      "playerCount": null,
+      "ratePerMinute": null
     },
     {
       "id": 4,
-      "running": true,
-      "startTime": 1754768947510,
-      "playerCount": 2,
-      "ratePerMinute": 0.15
+      "running": false,
+      "startTime": null,
+      "playerCount": null,
+      "ratePerMinute": null
     },
     {
       "id": 5,
-      "running": true,
-      "startTime": 1754768640177,
-      "playerCount": 4,
-      "ratePerMinute": 0.25
+      "running": false,
+      "startTime": null,
+      "playerCount": null,
+      "ratePerMinute": null
     },
     {
       "id": 6,
-      "running": true,
-      "startTime": 1754767883935,
+      "running": false,
+      "startTime": null,
       "playerCount": null,
       "ratePerMinute": null
     },
     {
       "id": 7,
-      "running": true,
-      "startTime": 1754768940071,
-      "playerCount": 2,
-      "ratePerMinute": 0.12
+      "running": false,
+      "startTime": null,
+      "playerCount": null,
+      "ratePerMinute": null
     }
   ]
 }

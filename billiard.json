@@ -1,0 +1,26 @@
+{
+  "date": "2025-08-10",
+  "revenue": 0.036,
+  "stations": [
+    {
+      "id": 1,
+      "running": true,
+      "startTime": 1754786473211
+    },
+    {
+      "id": 2,
+      "running": true,
+      "startTime": 1754786692227
+    },
+    {
+      "id": 3,
+      "running": false,
+      "startTime": null
+    },
+    {
+      "id": 4,
+      "running": false,
+      "startTime": null
+    }
+  ]
+}

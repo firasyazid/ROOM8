@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
 import {
+  BoxIconLine,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots
@@ -25,7 +26,12 @@ const navItems: NavItem[] = [
     path: "/News",
   },
 
- 
+  { 
+
+    name: "Billard",
+    icon: < BoxIconLine/>,
+    path: "/Billard",
+  },
 
 ];
 

@@ -5,7 +5,7 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
   const token = req.cookies.get('admin_token')?.value || '';
 
-  const publicPaths = ['/signin', '/forgotPassword'];
+  const publicPaths = ['/signin'];
   const isPublicPath = publicPaths.some((path) => url.pathname.startsWith(path));
 
   // If no token and not on a public path, redirect to sign-in
